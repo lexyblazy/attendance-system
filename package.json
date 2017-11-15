@@ -3,8 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
+  "engines": {
+    "node":  "7.7.2"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "dev" : "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +20,10 @@
   "bugs": {
     "url": "https://github.com/lexyblazy/attendance-system/issues"
   },
-  "homepage": "https://github.com/lexyblazy/attendance-system#readme"
+  "homepage": "https://github.com/lexyblazy/attendance-system#readme",
+  "dependencies": {
+    "ejs": "^2.5.7",
+    "express": "^4.15.4",
+    "mongoose": "^4.13.2"
+  }
 }
