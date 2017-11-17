@@ -1,0 +1,17 @@
+<% include ./partials/navbar %>
+
+<form action ='/user/<%=user.id%>/exit' method='POST'>
+    <div class='form-group'>
+        <label for="reason">Reason</label>
+        <select class='form-control' name='reason' >
+            <option value="general">General</option>
+            <option value="vacation">Vacation</option>
+            <option value="doctor">Doctor</option>
+            
+        </select>
+    </div>
+    <button class='btn btn-success' type="submit">CHECK OUT</button>   
+</form> 
+
+
+<%include ./partials/footer%>

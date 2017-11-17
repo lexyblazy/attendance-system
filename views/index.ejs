@@ -1,4 +1,8 @@
-<% include ./partials/navbar%>
-hello
+<% include ./partials/navbar %>
+<%users.forEach(function(user){%>
+    <div class='container'>
+        <a class='btn btn-success btn-block btn-lg' href="/user/<%=user._id%>"><%=user.name%></a>
+    </div>
 
-<% include ./partials/footer%>
+<%})%>
+<%include ./partials/footer%>

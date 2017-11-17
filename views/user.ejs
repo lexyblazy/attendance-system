@@ -1,0 +1,48 @@
+<% include ./partials/navbar%>
+<div class='container'>
+
+
+    <div class='row'>
+        
+        <div class='col-sm-4'>
+
+             <p class='lead'>Hello, <%=user.name.toUpperCase()%></p> 
+            <form action ='/user/<%=user.id%>/enter' method='POST'>
+                <button class='btn btn-success' type="submit">Check IN</button>   
+            </form> 
+            <br><br>
+                <a href="/" class='btn btn-primary btn-block btn-lg'>
+                    <span class='glyphicon glyphicon-chevron-left'></span> BACK
+                </a>
+            
+        </div>
+        <div class='col-sm-8'>
+            <div class='row text-center'>
+                <p class='lead'>Overview</p>
+                <%=user.attendance%>
+                <table class='table table-bordered table-hove'>
+                    <thead>
+                        <th>Date</th>
+                        <th>Entry time</th>
+                        <th>Exit time</th>
+                    </thead>
+                    <tbody>
+                    <%user.attendance.forEach(a=>{%>
+                       <tr>
+                        <td><%=a.date.toDateString()%></td>
+                        <td><%=moment(a.entry).format('HH:mm:ss')%></td>
+                        <td><%=a.exit%></td>
+                       </tr> 
+                    <%})%>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    
+
+   
+</div>
+<% include ./partials/footer%>
