@@ -3,7 +3,7 @@
 ## Some worthy notes.
 * I am using a 24hr timestamp
 * You can check-in and checkout at any time,
-* Because I am in  development mode. I made it such that you can check-in again in the next 60 seconds after the previous checkin (Ideally this should be set to 24hrs. depending on the how the work place is run. It could be a day job, or a job with morning and night shifts. the code can suit any purpose with a bit of modification)
+* Because I am in  development mode. I made it such that you can check-in again in the next 5 seconds after the previous checkin (Ideally this should be set to 24hrs. depending on the how the work place is run. It could be a day job, or a job with morning and night shifts. the code can suit any purpose with a bit of modification)
 * If an employee does not checkout for a certain day . the number of work hours is not computed for that day and it will not be added to the total number of work hours of that employee.
 
 

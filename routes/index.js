@@ -68,7 +68,7 @@ router.post('/users', async (req,res)=>{
           const lastCheckIn = user.attendance[user.attendance.length - 1];
           const lastCheckInTimestamp = lastCheckIn.date.getTime();
           // console.log(Date.now(), lastCheckInTimestamp);
-          if (Date.now() > lastCheckInTimestamp + 60000/*86400000*/) {
+          if (Date.now() > lastCheckInTimestamp + 5000/*86400000*/) {
             user.attendance.push(data);
             await user.save();
             req.flash('success','You have been signed in for today');
