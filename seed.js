@@ -4,7 +4,14 @@ const dummyUsers = [
     {name:'Adekola Olalekan'},
     {name:'lexy'},
     {name:'ghost rider'},
-    {name:'All the games'}
+    {name:'Uchiha Sasuke '},
+    {name:'Uchiha Itachi'},
+    {name:'Uchiha Madara'},
+    {name:'Uchiha Izuna'},
+    {name:'Uchiha Fugaku'},
+    {name:'Uchiha Obito'},
+    {name:'Uchiha Shuisui'}
+    
 ]
   
 
@@ -12,8 +19,8 @@ const dummyUsers = [
 async function seedDB(){
     try {
         const users = await User.insertMany(dummyUsers);
-        console.log('successful');
         console.log(users)
+        console.log('successful');
     } catch (error) {
         console.log('Unsuccessful')
     }

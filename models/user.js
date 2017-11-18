@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 const userSchema = new mongoose.Schema({
     name:{
         type:String, 
+        required:'You must supply a name',
+        trim:true
     },
    attendance:[{
 
@@ -10,7 +13,15 @@ const userSchema = new mongoose.Schema({
             default:Date.now,
         },
         entry:{type:Date},
-        exit:{ type:Date,reason:String}    
+        exit:{ 
+            time:{
+                type:Date
+            },
+            // 1 - General
+            // 2 - Vacation
+            // 3 - Doctor
+            reason:Number   
+        }    
   
    }]
 })

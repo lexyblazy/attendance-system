@@ -1,17 +1,23 @@
 <% include ./partials/navbar %>
 
-<form action ='/user/<%=user.id%>/exit' method='POST'>
+<div class='container'>
+    <div class='col-sm-6'>
+        <form action ='/user/<%=user.id%>/exit' method='POST'>
     <div class='form-group'>
         <label for="reason">Reason</label>
         <select class='form-control' name='reason' >
-            <option value="general">General</option>
-            <option value="vacation">Vacation</option>
-            <option value="doctor">Doctor</option>
+            <option value="1">General</option>
+            <option value="2">Vacation</option>
+            <option value="3">Doctor</option>
             
         </select>
     </div>
-    <button class='btn btn-success' type="submit">CHECK OUT</button>   
+    <a class='btn btn-warning' href="/user/<%=user.id%>"><span class='glyphicon glyphicon-chevron-left'></span> Back</a>
+    <button class='btn btn-danger' type="submit">CHECK OUT</button>   
 </form> 
+    </div>
+</div>
+
 
 
 <%include ./partials/footer%>

@@ -1,8 +1,25 @@
 <% include ./partials/navbar %>
-<%users.forEach(function(user){%>
-    <div class='container'>
-        <a class='btn btn-success btn-block btn-lg' href="/user/<%=user._id%>"><%=user.name%></a>
-    </div>
+ <div class='container'>
 
-<%})%>
+ <div class='list-group'>
+
+        <div class='container'>
+            <form class='col-sm-6 form-inline' action='/users' method='post'>
+             <h3>Add new Employee</h3>
+                <div class='form-group'>
+
+                    <input type="text" name="name" placeholder='Name' class='form-control'>
+                    <button type="submit" class='btn btn-primary'><span class='glyphicon glyphicon-plus'></span> Add</button>
+                </div>
+            </form>
+        </div>
+        <br><br>
+     <%users.forEach(function(user){%>
+       <div class='col-sm-4'>
+           <a class='btn btn-success btn-block btn-lg' href="/user/<%=user._id%>"><%=user.name%></a><br>
+       </div> 
+    <%})%>
+ </div>
+
+   </div>
 <%include ./partials/footer%>
