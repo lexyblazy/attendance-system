@@ -6,16 +6,18 @@
         
         <div class='col-sm-4'>
 
-             <p class='lead'>Hello, <%=user.name.toUpperCase()%></p> 
-            <form action ='/user/<%=user.id%>/enter' method='POST'>
-                <button class='btn btn-success' type="submit">Check IN</button>   
-            </form> 
+             <div> <strong  class='lead'> Hello, <%=user.name.toUpperCase()%> </strong>  
+                <form class='' action ='/user/<%=user.id%>/enter' method='POST'>
+                    <button class='btn btn-success' type="submit">Check IN</button>   
+                </form>
+             </div> 
+          
             <br><br>
                 <a href="/" class='btn btn-primary'>
                     <span class='glyphicon glyphicon-chevron-left'></span> BACK
                 </a>
 
-                <a href = '/user/<%=user._id%>/exit' class='btn btn-warning'>Proceed to CheckOut</a>
+                <a href = '/user/<%=user._id%>/exit' class='btn btn-warning'>Proceed to CheckOut  <span class='glyphicon glyphicon-chevron-right'></a>
             
         </div>
         <div class='col-sm-8'>

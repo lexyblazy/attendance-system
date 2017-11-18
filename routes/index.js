@@ -36,7 +36,7 @@ router.post('/users', async (req,res)=>{
       if(user.attendance.length > 0 ){
         user.attendance.map(a =>{
           if(a.entry && a.exit.time){
-            hours = calculateHours(a.entry.getTime(),a.exit.time.getTime());
+            hours = hours + calculateHours(a.entry.getTime(),a.exit.time.getTime());
           }
          
         })
@@ -68,7 +68,7 @@ router.post('/users', async (req,res)=>{
           const lastCheckIn = user.attendance[user.attendance.length - 1];
           const lastCheckInTimestamp = lastCheckIn.date.getTime();
           // console.log(Date.now(), lastCheckInTimestamp);
-          if (Date.now() > lastCheckInTimestamp + 5000/*86400000*/) {
+          if (Date.now() > lastCheckInTimestamp + 60000/*86400000*/) {
             user.attendance.push(data);
             await user.save();
             req.flash('success','You have been signed in for today');
@@ -134,9 +134,9 @@ router.post('/users', async (req,res)=>{
 
   
 function calculateHours(entryTime,exitTime){
-    let hours = 0;
-    hours = hours + (exitTime - entryTime);
-    return hours;
+    let time = 0;
+    time = time + (exitTime - entryTime);
+    return time;
   }
   
 
