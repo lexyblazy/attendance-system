@@ -9,10 +9,10 @@ const moment = require("moment");
 const seedDB = require("./seed");
 const removeUsers = require("./remove");
 const routes = require("./routes/index");
+require('dotenv').config({path:'variables.env'});
 
 mongoose.Promise = global.Promise; //tell mongoose to use ES6 promises
-const db = "mongodb://127.0.0.1:27017/attendance-system";
-mongoose.connect(db, err => {
+mongoose.connect(process.env.DATABASE, err => {
   if (err) {
     console.log("Cannot connect to database");
     console.log(err);
@@ -31,7 +31,7 @@ app.use(express.static(`${__dirname}/public`));
 
 app.use(
   session({
-    secret: "Sweet sesh",
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false
   })
@@ -49,6 +49,6 @@ app.use(routes);
 // removeUsers();
 // seedDB();
 
-app.listen(3000, () => {
+app.listen(process.env.PORT, () => {
   console.log("Server is up and running");
 });
