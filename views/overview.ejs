@@ -1,0 +1,32 @@
+<% include ./partials/navbar %>
+
+<div class='container'>
+    <div>
+        <a href="/" class='btn btn-primary'>Back</a>
+        <a href="/overview/pdf" class='btn btn-success'>Download PDF  <span class='glyphicon glyphicon-download'></span></a>
+       
+        
+    </div> <br><br>
+    <table class='table table-bordered table-responsive table-hover'>
+        <thead>
+        <tr>
+     <th>Name</th>
+        <th>Work Hours</th>
+        </tr>
+       
+        </thead>
+
+        <tbody>
+            <% overview.forEach(o => {%>
+                <tr>
+                <td><a href="/user/<%=o.user._id%>"><%=o.user.name%></a></td>
+                <td><%=o.hours%></td>
+                </tr>
+            <%})%>
+        </tbody>
+    </table>
+</div>
+
+
+
+<%include ./partials/footer%>

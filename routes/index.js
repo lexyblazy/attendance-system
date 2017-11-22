@@ -1,5 +1,10 @@
 const router = require('express').Router();
 const User = require('../models/user');
+const pdf = require('html-pdf');
+const fs = require('fs'),
+      path = require('path'),
+      ejs = require('ejs'),
+      juice = require('juice');
 
 //the Home page
 router.get("/", async (req, res) => {
@@ -10,6 +15,7 @@ router.get("/", async (req, res) => {
       console.log("Cannot find users");
     }
   });
+
 
 router.post('/users', async (req,res)=>{
     try {
@@ -34,6 +40,7 @@ router.post('/users', async (req,res)=>{
       const user = await User.findById(req.params.id);
       let hours = 0;
       if(user.attendance.length > 0 ){
+        user.attendance.reverse();
         user.attendance.map(a =>{
           if(a.entry && a.exit.time){
             hours = hours + calculateHours(a.entry.getTime(),a.exit.time.getTime());
@@ -41,7 +48,6 @@ router.post('/users', async (req,res)=>{
          
         })
         hours = parseFloat(hours /(3600*1000)).toFixed(4); 
-  
       }
       
       res.render("user", { user,hours});
@@ -51,6 +57,54 @@ router.post('/users', async (req,res)=>{
       res.redirect('back')
     }
   });
+
+  //the overview route
+  router.get('/overview',async (req,res)=>{
+    try {
+      const users = await User.find()
+      const overview = generateOverview(users);
+      res.render('overview',{overview})
+    } catch (error) {
+      console.log(error);
+    }
+  })
+
+  //generate pdf route
+  router.get('/overview/pdf',async (req,res)=>{
+    try {
+      const users = await User.find();
+      //map over the users array  and return something like
+      const overview = generateOverview(users);
+      let html = '';
+      let options = {
+       format: 'Letter'
+      };
+      ejs.renderFile('./views/overviewpdf.ejs', {overview}, function(err, result) {
+        // render on success
+        if (result) {
+           html = juice(result);
+        }
+        // render or error
+        else {
+           res.end('An error occurred');
+           console.log(err);
+        }
+    });
+    let filePath = ""
+    pdf.create(html, options).toFile('./overview.pdf', function(err, result) {
+      if (err) return console.log(err);
+      // console.log(result); // { filename: '/app/businesscard.pdf' }
+     filePath = result.filename;
+      res.download(filePath)
+    });
+
+    
+   
+    } catch (error) {
+      console.log(error);
+    }
+   
+  })
   
   //check in
   router.post("/user/:id/enter", async (req, res) => {
@@ -68,7 +122,7 @@ router.post('/users', async (req,res)=>{
           const lastCheckIn = user.attendance[user.attendance.length - 1];
           const lastCheckInTimestamp = lastCheckIn.date.getTime();
           // console.log(Date.now(), lastCheckInTimestamp);
-          if (Date.now() > lastCheckInTimestamp + 5000/*86400000*/) {
+          if (Date.now() > lastCheckInTimestamp + 100) {
             user.attendance.push(data);
             await user.save();
             req.flash('success','You have been signed in for today');
@@ -138,6 +192,25 @@ function calculateHours(entryTime,exitTime){
     time = time + (exitTime - entryTime);
     return time;
   }
-  
+
+  function generateOverview(users){
+    //map over the users array  and return something like
+    const overview = []
+       users.map(user =>{
+      let hours = 0;
+      if(user.attendance.length > 0 ){
+        user.attendance.map(a =>{
+          if(a.entry && a.exit.time){
+            hours = hours + calculateHours(a.entry.getTime(),a.exit.time.getTime());
+          }
+         
+        })
+        hours = parseFloat(hours /(3600*1000)).toFixed(4); 
+        overview.push({user,hours})
+      }
+    })
+    return overview;
+  }
+
 
   module.exports = router;

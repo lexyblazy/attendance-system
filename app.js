@@ -9,6 +9,7 @@ const moment = require("moment");
 const seedDB = require("./seed");
 const removeUsers = require("./remove");
 const routes = require("./routes/index");
+// const generatePDF = require('./generatePdf');
 require('dotenv').config({path:'variables.env'});
 
 mongoose.Promise = global.Promise; //tell mongoose to use ES6 promises

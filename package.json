@@ -28,6 +28,8 @@
     "ejs": "^2.5.7",
     "express": "^4.15.4",
     "express-session": "^1.15.5",
+    "html-pdf": "^2.2.0",
+    "juice": "^4.1.0",
     "moment": "^2.18.1",
     "mongoose": "^4.13.2"
   }
