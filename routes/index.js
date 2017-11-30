@@ -4,6 +4,7 @@ const pdf = require('html-pdf');
 const fs = require('fs'),
       path = require('path'),
       ejs = require('ejs'),
+      moment = require('moment'),
       juice = require('juice');
 
 //the Home page
@@ -57,6 +58,41 @@ router.post('/users', async (req,res)=>{
       res.redirect('back')
     }
   });
+
+  router.get('/user/:id/overview', async (req,res)=>{
+
+    try {
+      const user = await User.findById(req.params.id);
+      const overview = generateUserOverview(user);
+      overview.reverse();
+      let html = '';
+      let options = {
+       format: 'Letter'
+      };
+      ejs.renderFile('./views/useroverviewpdf.ejs', {overview,moment,user}, function(err, result) {
+        // render on success
+        if (result) {
+           html = juice(result);
+        }
+        // render or error
+        else {
+           res.end('An error occurred');
+           console.log(err);
+        }
+    });
+    let filePath = ""
+    pdf.create(html, options).toFile('./user_overview.pdf', function(err, result) {
+      if (err) return console.log(err);
+      // console.log(result); // { filename: '/app/businesscard.pdf' }
+     filePath = result.filename;
+      res.download(filePath)
+    })
+
+    } catch (error) {
+      console.log(error)
+    }
+   
+  })
 
   //the overview route
   router.get('/overview',async (req,res)=>{
@@ -212,5 +248,18 @@ function calculateHours(entryTime,exitTime){
     return overview;
   }
 
+  function generateUserOverview(user){
+    const overview = []
+    user.attendance.map( a=>{
+     overview.push({
+        date: a.date,
+        entry: a.entry,
+        exit: a.exit.time,
+        reason: a.exit.reason
+      })
+
+    })
+    return overview;
+  }
 
   module.exports = router;
