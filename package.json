@@ -31,6 +31,7 @@
     "html-pdf": "^2.2.0",
     "juice": "^4.1.0",
     "moment": "^2.18.1",
-    "mongoose": "^4.13.2"
+    "mongoose": "^4.13.2",
+    "nodemon": "^1.18.6"
   }
 }
