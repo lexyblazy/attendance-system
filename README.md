@@ -11,3 +11,44 @@
 * Ability for the employees to search for their names
 * Some administrative work route. for the manager
 * Data visualizations using d3.js (bar, charts, heat maps, nodes) etc. d3.js remains the best in-browser data visualization library.
+
+
+## Requirements
+
+- Node.js
+- Mongo (You can follow this guide to get mongo with docker https://gist.github.com/jrichardsz/3f5ab6cffb2a4393fda331315469ad83)
+
+## Getting started
+
+- start a mongo database process
+
+- expose environment variables
+```
+export DATABASE=localhost
+export port=9000
+export SECRET=1e1df736
+```
+- install libraries
+```
+npm install
+```
+- start in dev mode
+```
+npm run dev
+```
+
+- You must see this log:
+
+```
+Server is up and running
+Connection to database was succesful
+```
+
+Other logs could be indicate an error.
+
+
+## Home Page
+
+Point your browser at http://localhost:9000 and you will be see something like:
+
+![demo](https://image.ibb.co/jK6WaA/demo.gif)

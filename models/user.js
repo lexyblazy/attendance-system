@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const userSchema = new mongoose.Schema({
     name:{
-        type:String, 
+        type:String,
         required:'You must supply a name',
         trim:true
     },
@@ -13,17 +13,19 @@ const userSchema = new mongoose.Schema({
             default:Date.now,
         },
         entry:{type:Date},
-        exit:{ 
+        exit:{
             time:{
                 type:Date
             },
             // 1 - General
             // 2 - Vacation
             // 3 - Doctor
-            reason:Number   
-        }    
-  
+            reason:Number
+        }
+
    }]
+}, {
+  usePushEach: true
 })
 
 module.exports = mongoose.model('User',userSchema);
